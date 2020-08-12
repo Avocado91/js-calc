@@ -2,6 +2,22 @@ const calculator = document.querySelector(".calculator")
 const keys = document.querySelector(".calculator__keys")
 const display = document.querySelector(".calculator__display")
 
+const calculate = (n1, operator, n2) => {
+    let result = ""
+
+    if (operator === "add") {
+        result = parseFloat(n1) + parseFloat(n2)
+    } else if (operator === "subtract") {
+        result = parseFloat(n1) - parseFloat(n2)
+    } else if (operator === "multiply") {
+        result = parseFloat(n1) * parseFloat(n2)
+    } else if (operator === "divide") {
+        result = parseFloat(n1) / parseFloat(n2)
+    }
+
+    return result
+}
+
 keys.addEventListener("click", (e) => {
     if (e.target.matches("button")) {
         const key = e.target
@@ -16,7 +32,7 @@ keys.addEventListener("click", (e) => {
 
         if (!action) {
             //replace default 0 in calc with number pressed
-            if (displayedNum === 0 || previousKeyType === "operator") {
+            if (displayedNum === "0" || previousKeyType === "operator") {
                 display.textContent === keyContent
                 //add key pressed to number already in display
             } else {
@@ -32,6 +48,8 @@ keys.addEventListener("click", (e) => {
             action === "multiply" ||
             action === "divide"
         ) {
+            calculator.dataset.firstValue = displayedNum
+            calculator.dataset.operator = action
             //to know which operator is active
             key.classList.add("is-depressed")
             //add custom attribute
@@ -50,6 +68,12 @@ keys.addEventListener("click", (e) => {
         }
 
         if (action === "calculate") {
+            const firstValue = calculator.dataset.firstValue
+            const operator = calculator.dataset.operator
+            const secondValue = displayedNum
+
+            display.textContent = calculate(firstValue, operator, secondValue)
+
             console.log("calculate key")
         }
     }
