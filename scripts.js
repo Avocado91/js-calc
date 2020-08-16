@@ -35,7 +35,7 @@ keys.addEventListener("click", (e) => {
             //replace default 0 in calc with number pressed
             if (displayedNum === "0" || previousKeyType === "operator") {
                 display.textContent = keyContent
-                calculator.dataset.previousKeyType = ""
+                calculator.dataset.previousKeyType = "number"
                 //add key pressed to number already in display
             } else {
                 display.textContent = displayedNum + keyContent
@@ -62,12 +62,17 @@ keys.addEventListener("click", (e) => {
         if (action === "decimal") {
             if (!displayedNum.includes(".")) {
                 display.textContent = displayedNum + "."
+            } else if (previousKeyType === "operator") {
+                display.textContent = "0."
             }
+
+            calculator.dataset.previousKeyType = "decimal"
 
             console.log("decimal key")
         }
 
         if (action === "clear") {
+            calculator.dataset.previousKeyType = "clear"
             console.log("clear key")
         }
 
@@ -77,6 +82,8 @@ keys.addEventListener("click", (e) => {
             const secondValue = displayedNum
 
             display.textContent = calculate(firstValue, operator, secondValue)
+
+            calculator.dataset.previousKeyType = "calculate"
 
             console.log("calculate key")
         }
