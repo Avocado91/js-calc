@@ -24,6 +24,7 @@ keys.addEventListener("click", (e) => {
         const action = key.dataset.action
         const keyContent = key.textContent
         const displayedNum = display.textContent
+        const previousKeyType = calculator.dataset.previousKeyType
 
         //Remove 'is-depressed' class from all operator keys after number key is pressed
         Array.from(key.parentNode.children).forEach((k) =>
@@ -33,7 +34,8 @@ keys.addEventListener("click", (e) => {
         if (!action) {
             //replace default 0 in calc with number pressed
             if (displayedNum === "0" || previousKeyType === "operator") {
-                display.textContent === keyContent
+                display.textContent = keyContent
+                calculator.dataset.previousKeyType = ""
                 //add key pressed to number already in display
             } else {
                 display.textContent = displayedNum + keyContent
