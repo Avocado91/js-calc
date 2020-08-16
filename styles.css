@@ -167,6 +167,10 @@ body {
   background-color: #eee;
 }
 
+.key--operator:active {
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5) inset;
+}
+
 .key--equal {
   background-image: linear-gradient(to bottom, #fe886a, #ff7033);
   grid-column: -2;

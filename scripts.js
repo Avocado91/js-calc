@@ -50,7 +50,21 @@ keys.addEventListener("click", (e) => {
             action === "multiply" ||
             action === "divide"
         ) {
-            calculator.dataset.firstValue = displayedNum
+            const firstValue = calculator.dataset.firstValue
+            const operator = calculator.dataset.operator
+            const secondValue = displayedNum
+
+            if (firstValue && operator && previousKeyType !== "operator") {
+                const calcValue = calculate(firstValue, operator, secondValue)
+                display.textContent = calcValue
+
+                //update calculated value as firstValue
+                calculator.dataset.firstValue = calcValue
+            } else {
+                //if there are no calculations, set displayedNum as the firstValue
+                calculator.dataset.firstValue = displayedNum
+            }
+
             calculator.dataset.operator = action
             //to know which operator is active
             key.classList.add("is-depressed")
